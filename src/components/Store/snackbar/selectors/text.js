@@ -3,9 +3,9 @@ import { createSelector } from 'reselect';
 /**
  * @return {Function}
  */
-const formItemText = () => createSelector(
-	(state) => state.task.form,
+const text = () => createSelector(
+	(state) => state.snackbar,
 	(state) => state.text,
 );
 
-export default formItemText;
+export default text;

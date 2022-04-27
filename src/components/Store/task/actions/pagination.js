@@ -17,5 +17,11 @@ export const firePagination = (newPage) => async (prefix = 'task') => {
  * @return {object} New state
  */
 export const reducerPagination = (state, action) => {
-	return state;
+	return { 
+		...state, 
+		list: {
+			...state.list,
+			page: action.payload,
+		},
+	};
 };

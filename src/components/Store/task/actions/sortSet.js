@@ -2,7 +2,7 @@ import Store from 'components/Store';
 
 /**
  * @param {string} columnName
- * @param {string} direction
+ * @param {number} direction
  * @return {Function}
  */
 export const fireSortSet = (columnName, direction) => async (prefix = 'task') => {
@@ -21,5 +21,14 @@ export const fireSortSet = (columnName, direction) => async (prefix = 'task') =>
  * @return {object} New state
  */
 export const reducerSortSet = (state, action) => {
-	return state;
+	return {
+		...state,
+		list: {
+			...state.list,
+			sort: {
+				...state.list.sort,
+				[action.payload.columnName]: action.payload.direction,
+			}
+		}
+	};
 };

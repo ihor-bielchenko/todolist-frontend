@@ -3,9 +3,9 @@ import { createSelector } from 'reselect';
 /**
  * @return {Function}
  */
-const listPage = () => createSelector(
+const listData = () => createSelector(
 	(state) => state.task.list ?? {},
-	(state) => state.page,
+	(state) => state.data ?? [],
 );
 
-export default listPage;
+export default listData;

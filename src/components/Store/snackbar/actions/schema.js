@@ -3,7 +3,7 @@ import Store from 'components/Store';
 /**
  * @return {Function}
  */
-export const fireSchema = () => async (prefix = 'main') => {
+export const fireSchema = () => async (prefix = 'snackbar') => {
 	Store().dispatch({
 		type: prefix +'.schema',
 	});
@@ -15,5 +15,10 @@ export const fireSchema = () => async (prefix = 'main') => {
  * @return {object} New state
  */
 export const reducerSchema = (state, action) => {
-	return {};
+	return {
+		visible: false,
+		timeout: 3000,
+		status: 'info',
+		text: 'Test',
+	};
 };

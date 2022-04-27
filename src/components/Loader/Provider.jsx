@@ -15,12 +15,19 @@ let Provider = ({ children }) => {
 
 	return <React.Fragment>
 		{(typeof visibleFlag === 'boolean')
-			? visibleFlag
-				? <Backdrop open={!!visibleFlag}>
+			? <React.Fragment>
+				<Backdrop 
+					open={!!visibleFlag}
+					sx={{
+						zIndex: 9,
+					}}>
 					<Loader />
 				</Backdrop>
-				: children
-			: <React.Fragment />}
+				{children}
+			</React.Fragment>
+			: <Backdrop open={true}>
+				<Loader />
+			</Backdrop>}
 	</React.Fragment>
 };
 

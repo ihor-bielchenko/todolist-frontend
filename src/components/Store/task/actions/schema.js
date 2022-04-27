@@ -1,12 +1,46 @@
+import axios from 'axios';
 import Store from 'components/Store';
+import { fireShow as actionSnackbarShow } from 'components/Store/snackbar/actions/show.js';
+import { fireShow as actionLoaderShow } from 'components/Store/loader/actions/show.js';
+import { fireHide as actionLoaderHide } from 'components/Store/loader/actions/hide.js';
+
 
 /**
  * @return {Function}
  */
-export const fireSchema = () => async (prefix = 'task') => {
-	Store().dispatch({
-		type: prefix +'.task',
-	});
+export const fireSchema = (page, limit, sort) => async (prefix = 'task') => {
+	try {
+		actionLoaderShow()();
+
+		const {
+			page: currentPage,
+			limit: currentLimit,
+		} = Store().getState().task.list ?? {};
+
+		let queryStr = `${process.env.URL_API}/${process.env.URL_API_TASK}?page=${page ?? currentPage}&limit=${limit ?? currentLimit}`;
+
+		if (sort) {
+			queryStr += `&sort=${sort}`;
+		}
+		const request = await axios(queryStr);
+
+		Store().dispatch({
+			type: prefix +'.schema',
+			payload: {
+				page: page ?? currentPage,
+				limit: limit ?? currentLimit,
+				total: request.data.data.count,
+				data: request.data.data.rows,
+			},
+		});
+		setTimeout(() => {
+			actionLoaderHide()();
+		}, 1000);
+	}
+	catch (err) {
+		console.log('err', err);
+		return actionSnackbarShow('error', 'Возникла ошибка при получении списка задач')();
+	}
 };
 
 /**
@@ -24,10 +58,11 @@ export const reducerSchema = (state, action) => {
 			statusId: 1,
 		},
 		list: {
-			page: 1,
+			sort: {},
+			page: 0,
 			limit: 3,
-			total: 10,
-			data: [],
+			...state.list,
+			...action.payload,
 		},
 	};
 };
