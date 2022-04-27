@@ -7,7 +7,7 @@ import { fireHide as actionLoaderHide } from 'components/Store/loader/actions/hi
 /**
  * @return {Function}
  */
-export const fireSignIn = (name, password) => async (prefix = 'auth') => {
+export const fireSignIn = (name, password, navigate) => async (prefix = 'auth') => {
 	if (!name
 		|| !password) {
 		return actionSnackbarShow('error', 'Необходимо заполнить все поля')();
@@ -24,7 +24,7 @@ export const fireSignIn = (name, password) => async (prefix = 'auth') => {
 			Store().dispatch({
 				type: prefix +'.signIn',
 			});
-			window.location.href = '/';
+			navigate('/');
 		}, 1000);
 	}
 	catch (err) {
