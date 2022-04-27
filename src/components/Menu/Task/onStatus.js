@@ -18,7 +18,7 @@ export const onStatus = async (taskId) => {
 		actionMenuClose(taskId.toString())();
 	}
 	catch (err) {
-		actionSnackbarShow('error', 'Возникла ошибка при изменении статуса задачи')();
+		actionSnackbarShow('error', `Возникла ошибка при изменении статуса задачи: [${err.response.data.message}]`)();
 		actionLoaderHide()();
 	}
 };

@@ -16,7 +16,6 @@ export const fireSignIn = (name, password, navigate) => async (prefix = 'auth') 
 		actionLoaderShow()();
 
 		const request = await axios(`${process.env.URL_API}/${process.env.URL_API_LOGIN}?name=${name}&password=${password}`);
-
 		localStorage.setItem('access_token', request.data.data.access_token);
 		localStorage.setItem('refresh_token', request.data.data.refresh_token);
 
@@ -28,7 +27,7 @@ export const fireSignIn = (name, password, navigate) => async (prefix = 'auth') 
 		}, 1000);
 	}
 	catch (err) {
-		actionSnackbarShow('error', 'Возникла ошибка при авторизации')();
+		actionSnackbarShow('error', `Возникла ошибка при авторизации: [${err.response.data.message}]`)();
 		actionLoaderHide()();
 	}
 };

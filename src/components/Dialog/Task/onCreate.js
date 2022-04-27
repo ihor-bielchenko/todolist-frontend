@@ -41,7 +41,7 @@ export const onCreate = async ({
 		actionSnackbarShow('success', 'Новая задача успешно создана')();
 	}
 	catch (err) {
-		actionSnackbarShow('error', 'Возникла ошибка при добавлении задачи')();
+		actionSnackbarShow('error', `Возникла ошибка при добавлении задачи: [${err.response.data.message}]`)();
 		actionLoaderHide()();
 	}
 };

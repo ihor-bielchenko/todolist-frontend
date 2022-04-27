@@ -38,8 +38,7 @@ export const fireSchema = (page, limit, sort) => async (prefix = 'task') => {
 		}, 1000);
 	}
 	catch (err) {
-		console.log('err', err);
-		return actionSnackbarShow('error', 'Возникла ошибка при получении списка задач')();
+		return actionSnackbarShow('error', `Возникла ошибка при получении списка задач: [${err.response.data.message}]`)();
 	}
 };
 

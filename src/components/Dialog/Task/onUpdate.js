@@ -40,7 +40,7 @@ export const onUpdate = async (taskId, {
 		onDialogClose();
 	}
 	catch (err) {
-		actionSnackbarShow('error', 'Возникла ошибка при добавлении задачи')();
+		actionSnackbarShow('error', `Возникла ошибка при обновлении задачи: [${err.response.data.message}]`)();
 		actionLoaderHide()();
 	}
 };
